@@ -17,17 +17,17 @@ flowchart TD
 
   subgraph システム
     S1{{ファイルアップロード結果}}
-    S1 -- 成功 --> S2["ファイルURLを返却"]
-    S1 -- 失敗 --> S3["エラー返却"] -.-> A5
+    S1 -- OK --> S2["ファイルURLを返却"]
+    S1 -- NG --> S3["エラー返却"] -.-> A5
     A9 -.-> |PATCH /reports/draft| S4["ドラフト保存"]
     S4 -- OK --> S5([下書き保存完了])
     A10 -.-> |POST /reports| S6{{バリデーション}}
     S6 -- OK --> S7["JSON生成 and ストレージ保存"]
-    S7 --> S8["ステータス = PENDING_APPROVAL"]
+    S7 -- OK --> S8["ステータス = PENDING_APPROVAL"]
     S8 --> S9["承認者へ通知メール"]
     S9 --> S10([提出完了])
     S6 -- NG  --> S11["バリデーションエラー返却"] -.-> A3
-    S7 -- 失敗 --> S12["500 Error 返却"] -.-> A10
+    S7 -- NG --> S12["500 Error 返却"] -.-> A10
     S4 -.->|NG| A9
   end
 
