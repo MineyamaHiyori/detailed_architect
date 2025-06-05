@@ -26,10 +26,12 @@ sequenceDiagram
         UI   ->> API : PATCH /reports/draft
         API  -->> UI : 下書き保存完了
         UI   -->> User: 完了表示
+    else 下書き保存失敗
+        API  -->> UI   : エラー返却
+        UI   -->> User : エラー表示
     else 提出
         User ->> UI  : 提出クリック
         UI   ->> API : POST /reports
-        API  ->> API : バリデーション
         alt バリデーション OK
             API   ->> Store: JSON 保存
             Store -->> API  : OK
