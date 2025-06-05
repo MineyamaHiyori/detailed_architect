@@ -5,9 +5,24 @@ sequenceDiagram
     participant API   as バックエンド API
     participant Store as ストレージ
     participant Mail  as メールサービス
-    User  ->> UI  : 新規報告書クリック
-    UI    ->> User: 入力フォーム表示
-    User  ->> UI  : 基本項目入力
+    alt 新規報告書
+        User  ->> UI  : 新規報告書クリック
+        UI    ->> User: 入力フォーム表示
+    else 下書きから再開
+        User  ->> UI  : 下書き一覧表示クリック
+        UI    ->> API: GET /draft
+        API   ->> Store:下書きのタイトル、作成日を要求
+        Store ->> API: 下書きのタイトル、作成日を返却
+        API ->> UI: 下書き概要の返却
+        UI    ->> User: 下書き一覧表示
+        User  ->> UI  : 下書きクリック
+        UI    ->> API: GET /draft/{draft.id}
+        API ->> Store: 下書き詳細の要求
+        Store ->> API: 下書き詳細の返却
+        API ->> UI: 下書き詳細の返却
+        UI ->> User:下書きの表示
+        
+    end
     alt 添付ファイルあり
         User  ->> UI  : ファイル選択
         UI    ->> API : POST /upload
