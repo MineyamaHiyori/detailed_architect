@@ -23,7 +23,8 @@ sequenceDiagram
     User ->> UI   : 保存方法選択
     alt 下書き保存
         User ->> UI  : 下書き保存クリック
-        UI   ->> API : PATCH /reports/draft
+        UI   ->> API : PUT /draft
+        API  ->> Store : ストレージに保存
         API  -->> UI : 下書き保存完了
         UI   -->> User: 完了表示
     else 下書き保存失敗
