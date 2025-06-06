@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/fca2342e-69d2-4fe7-a788-40538aee8242)```mermaid
+```mermaid
 classDiagram
 direction TB
     class 場所 {
