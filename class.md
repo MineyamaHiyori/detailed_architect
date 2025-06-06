@@ -20,6 +20,8 @@ direction TB
 
         +Member getDetail()
         +Void writeProposal(data: Proposal)
+        +Void writeReport(data: Report)
+        +Void writeDraft(data: Draft)
         +List getAllProposal()
         +List getAllReport()
         +List getAllDraft()
@@ -46,8 +48,6 @@ direction TB
         -String 添付資料
         
         +Proposal getDetail()
-        +Void writeReport(data: Report)
-        +Void writeDraft(data: Draft)
         +List getAllMember()
         +List getAllReport()
         +Void update(data: Proposal)
